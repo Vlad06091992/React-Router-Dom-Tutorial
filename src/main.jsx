@@ -5,16 +5,27 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import "./index.css";
+import Root, {loader as rootloader} from "./routes/root.jsx";
+import ErrorPage from "./error-page";
+import Contact from "./routes/contact.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <div>Hello world!</div>,
+        element: <Root />,
+        loader: rootloader,
+        children: [
+            {
+                path: "contacts/:id",
+                element: <Contact />,
+            },
+        ],
+        errorElement: <ErrorPage />,
     },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <RouterProvider router={router}/>
     </React.StrictMode>
 );
